@@ -15,15 +15,15 @@ export default function Home() {
   // Create
   const onSubmitBlock = async (e) => {
     e.preventDefault();
-    const { title, author, description } = e.target;
+    const { height, builder, twitterURL } = e.target;
     await axios.post("/api/blocks", {
-      title: title.value,
-      author: author.value,
-      description: description.value,
+      height: height.value,
+      builder: builder.value,
+      twitterURL: twitterURL.value,
     });
-    title.value = "";
-    author.value = "";
-    description.value = "";
+    height.value = "";
+    builder.value = "";
+    twitterURL.value = "";
     getBlocks();
   };
 
@@ -37,11 +37,11 @@ export default function Home() {
   // Update
   const onSubmitEdits = async (e, id) => {
     e.preventDefault();
-    const { title, author, description } = e.target;
+    const { height, builder, twitterURL } = e.target;
     await axios.post(`/api/blocks/update/${id}`, {
-      title: title.value,
-      author: author.value,
-      description: description.value,
+      height: height.value,
+      builder: builder.value,
+      twitterURL: twitterURL.value,
     });
     setEditing(null);
     getBlocks();
@@ -70,12 +70,12 @@ export default function Home() {
       <div className="DataInput">
         <h2>Enter block:</h2>
         <form onSubmit={(e) => onSubmitBlock(e)}>
-          <label htmlFor="title">Title:</label>
-          <input type="text" name="title" />
-          <label htmlFor="author">Author:</label>
-          <input type="text" name="author" />
-          <label htmlFor="description">Description:</label>
-          <input type="text" name="description" />
+          <label htmlFor="height">Height:</label>
+          <input type="text" name="height" />
+          <label htmlFor="builder">Builder:</label>
+          <input type="text" name="builder" />
+          <label htmlFor="twitterURL">Twitter URL:</label>
+          <input type="text" name="twitterURL" />
           <button>Add Block</button>
         </form>
       </div>
@@ -86,16 +86,16 @@ export default function Home() {
               <div key={block._id} className="DataOutput__card">
                 <div className="DataOutput__card--details">
                   <div>
-                    <span>Title:</span>
-                    {block.title}
+                    <span>Height:</span>
+                    {block.height}
                   </div>
                   <div>
-                    <span>Author:</span>
-                    {block.author}
+                    <span>Builder:</span>
+                    {block.builder}
                   </div>
                   <div>
-                    <span>Description:</span>
-                    {block.description}
+                    <span>Twitter URL:</span>
+                    {block.twitterURL}
                   </div>
                 </div>
                 <div className="DataOutput__card--options">
@@ -107,28 +107,28 @@ export default function Home() {
               <div key={block._id} className="DataOutput__editing">
                 <form onSubmit={(e) => onSubmitEdits(e, block._id)}>
                   <div className="DataOutput__editing--option">
-                    <label htmlFor="title">Title:</label>
+                    <label htmlFor="height">Height:</label>
                     <input
                       type="text"
-                      name="title"
-                      defaultValue={block.title}
+                      name="height"
+                      defaultValue={block.height}
                     />
                     b
                   </div>
                   <div className="DataOutput__editing--option">
-                    <label htmlFor="author">Author:</label>
+                    <label htmlFor="builder">Builder:</label>
                     <input
                       type="text"
-                      name="author"
-                      defaultValue={block.author}
+                      name="builder"
+                      defaultValue={block.builder}
                     />
                   </div>
                   <div className="DataOutput__editing--option">
-                    <label htmlFor="description">Description:</label>
+                    <label htmlFor="twitterURL">TwitterURL:</label>
                     <input
                       type="text"
-                      name="description"
-                      defaultValue={block.description}
+                      name="twitterURL"
+                      defaultValue={block.twitterURL}
                     />
                   </div>
                   <div>
