@@ -1,6 +1,16 @@
 import Button from "../components/Button";
 import TextInput from "../components/TextInput";
 
+import styled from "styled-components";
+
+const CreateBlockWrapper = styled.div`
+  box-shadow: rgb(145 158 171 / 20%) 0px 0px 2px 0px,
+    rgb(145 158 171 / 12%) 0px 12px 24px -4px;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 24px;
+`;
+
 const CreateBlock = ({
   onSubmitBlock,
   blockData,
@@ -9,13 +19,7 @@ const CreateBlock = ({
   setProofs,
 }) => {
   return (
-    <div
-      style={{
-        border: "1px solid grey",
-        borderRadius: "4px",
-        padding: "20px",
-      }}
-    >
+    <CreateBlockWrapper>
       <form
         style={{
           display: "flex",
@@ -106,7 +110,7 @@ const CreateBlock = ({
         </div>
         <Button variation="primary">Add Block</Button>
       </form>
-    </div>
+    </CreateBlockWrapper>
   );
 };
 
