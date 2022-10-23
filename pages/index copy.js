@@ -8,15 +8,6 @@ export default function Home() {
   const [blocks, setBlocks] = useState([]);
   const [editing, setEditing] = useState(null);
 
-  const [blockData, setBlockData] = useState({
-    height: "",
-    parent: "",
-    twitterURL: "",
-  });
-  const [proofs, setProofs] = useState([
-    { amount: "", twitterURL: "", miner: "" },
-  ]);
-
   useEffect(() => {
     getBlocks();
   }, []);
@@ -24,17 +15,15 @@ export default function Home() {
   // Create
   const onSubmitBlock = async (e) => {
     e.preventDefault();
-    const builder = blockData.twitterURL.split("/")[3];
-    console.log("blockData", blockData);
-    console.log("proofs", proofs);
+    const { height, twitterURL } = e.target;
+    const builder = twitterURL.value.split("/")[3];
+    console.log("twitterURL", builder);
 
-    await axios.post("/api/blocks", {
-      height: blockData.height,
-      builder: builder,
-      twitterURL: blockData.twitterURL,
-      proofs,
-    });
-
+    // await axios.post("/api/blocks", {
+    //   height: height.value,
+    //   builder: builder.value,
+    //   twitterURL: twitterURL.value,
+    // });
     // height.value = "";
     // builder.value = "";
     // twitterURL.value = "";
@@ -46,6 +35,19 @@ export default function Home() {
     const res = await axios.get("/api/blocks");
     const data = res.data;
     setBlocks(data);
+  };
+
+  // Update
+  const onSubmitEdits = async (e, id) => {
+    e.preventDefault();
+    const { height, builder, twitterURL } = e.target;
+    await axios.post(`/api/blocks/update/${id}`, {
+      height: height.value,
+      builder: builder.value,
+      twitterURL: twitterURL.value,
+    });
+    setEditing(null);
+    getBlocks();
   };
 
   // Delete
@@ -87,83 +89,27 @@ export default function Home() {
           <h2>Enter block:</h2>
 
           <label htmlFor="height">Height:</label>
-          <input
-            type="text"
-            name="height"
-            value={blockData.height}
-            onChange={(e) =>
-              setBlockData({
-                ...blockData,
-                height: e.target.value,
-              })
-            }
-          />
+          <input type="text" name="height" />
           <label htmlFor="parent">Parent:</label>
-          <input
-            type="text"
-            name="parent"
-            value={blockData.parent}
-            onChange={(e) =>
-              setBlockData({
-                ...blockData,
-                parent: e.target.value,
-              })
-            }
-          />
+          <input type="text" name="parent" />
           <label htmlFor="twitterURL">Twitter URL:</label>
-          <input
-            type="text"
-            name="twitterURL"
-            value={blockData.twitterURL}
-            onChange={(e) =>
-              setBlockData({
-                ...blockData,
-                twitterURL: e.target.value,
-              })
-            }
-          />
+          <input type="text" name="twitterURL" />
           <h2>Proofs:</h2>
-          <div>
-            {proofs.map((proof, index) => {
-              return (
-                <div style={{ display: "flex" }} key={index}>
-                  <span>{index + 1}</span>
-                  <input
-                    type="text"
-                    name="amount"
-                    onChange={(e) => {
-                      const updatedProofs = [...proofs];
-                      updatedProofs[index].amount = e.target.value;
-                      setProofs(updatedProofs);
-                    }}
-                    value={proofs[index].amount}
-                  />
-                  <input
-                    type="text"
-                    name="twitterURL"
-                    onChange={(e) => {
-                      const updatedProofs = [...proofs];
-                      updatedProofs[index].twitterURL = e.target.value;
-                      updatedProofs[index].miner = e.target.value.split("/")[3];
-                      setProofs(updatedProofs);
-                    }}
-                    value={proofs[index].twitterURL}
-                  />
-                  {index === proofs.length - 1 && (
-                    <button
-                      onClick={() =>
-                        setProofs([...proofs, { amount: "", twitterURL: "" }])
-                      }
-                    >
-                      +
-                    </button>
-                  )}
-                </div>
-              );
-            })}
-          </div>
           <button>Add Block</button>
         </form>
+      </div>
+
+      <div className="DataInput">
+        {/* <h2>Enter block:</h2>
+        <form onSubmit={(e) => onSubmitBlock(e)}>
+          <label htmlFor="height">Height:</label>
+          <input type="text" name="height" />
+          <label htmlFor="builder">Builder:</label>
+          <input type="text" name="builder" />
+          <label htmlFor="twitterURL">Twitter URL:</label>
+          <input type="text" name="twitterURL" />
+          <button>Add Block</button>
+        </form> */}
       </div>
       <div className="DataOutput">
         {blocks.map((block) => (
