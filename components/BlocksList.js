@@ -64,6 +64,7 @@ const BlocksList = ({
                       name="height"
                       labelText="Height"
                       defaultValue={block.height}
+                      value={block.height}
                     />
                   </div>
                   <div className="DataOutput__editing--option">
@@ -72,6 +73,7 @@ const BlocksList = ({
                       name="builder"
                       labelText="Builder"
                       defaultValue={block.builder}
+                      value={block.builder}
                     />
                   </div>
                   <div className="DataOutput__editing--option">
@@ -80,6 +82,7 @@ const BlocksList = ({
                       name="twitterURL"
                       labelText="Twitter URL"
                       defaultValue={block.twitterURL}
+                      value={block.twitterURL}
                     />
                   </div>
                   <div style={{ display: "flex" }}>

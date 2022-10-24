@@ -18,13 +18,11 @@ const ButtonStyles = styled.button`
     &.secondary {
         background-color: #fff;
         border: 1px solid #B8B8B8;
-        min-width: 52px;
     }
     &.primary {
         background-color: #0C6FF9;
         color: #fff;
         border: none;
-        min-width: 52px;
     }
     &.icon {
         background: #fff;

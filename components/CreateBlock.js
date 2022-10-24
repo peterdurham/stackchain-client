@@ -71,11 +71,20 @@ const CreateBlock = ({
         <div>
           {proofs.map((proof, index) => {
             return (
-              <div style={{ display: "flex" }} key={index}>
-                <span>{index + 1}</span>
-                <input
+              <div style={{ display: "flex", marginBottom: "8px" }} key={index}>
+                <div
+                  style={{
+                    display: "flex",
+                    marginRight: "8px",
+                    alignItems: "center",
+                  }}
+                >
+                  {index + 1}.
+                </div>
+                <TextInput
                   type="text"
                   name="amount"
+                  showLabel={false}
                   onChange={(e) => {
                     const updatedProofs = [...proofs];
                     updatedProofs[index].amount = e.target.value;
@@ -83,9 +92,10 @@ const CreateBlock = ({
                   }}
                   value={proofs[index].amount}
                 />
-                <input
+                <TextInput
                   type="text"
                   name="twitterURL"
+                  showLabel={false}
                   onChange={(e) => {
                     const updatedProofs = [...proofs];
                     updatedProofs[index].twitterURL = e.target.value;

@@ -25,10 +25,17 @@ const TextInputStyles = styled.div`
   }
 `;
 
-const TextInput = ({ type, onChange, value, labelText = "hello", id }) => {
+const TextInput = ({
+  type,
+  onChange,
+  value,
+  showLabel = true,
+  labelText = "hello",
+  id,
+}) => {
   return (
     <TextInputStyles>
-      <label>{labelText}</label>
+      {showLabel && <label>{labelText}</label>}
       <input type={type} onChange={onChange} value={value} id={id} />
     </TextInputStyles>
   );
