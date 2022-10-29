@@ -1,4 +1,5 @@
-const Blocks = () => {
+const Blocks = ({ blocks }) => {
+  console.log("blocks", blocks);
   return (
     <div className="container">
       <h1>Blocks Page</h1>

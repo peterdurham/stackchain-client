@@ -7,24 +7,44 @@ import styled from "styled-components";
 
 const MainSectionWrapper = styled.main`
   margin-left: 260px;
-  width: calc(100% - 260px);
+  width: ${({ menuOpen = false }) =>
+    menuOpen ? "calc(100% - 260px)" : "100%"};
+
+  @media (max-width: 1000px) {
+    margin-left: 0;
+    width: 100%;
+  }
 `;
 
 const PageContentWrapper = styled.main`
   padding-top: 72px;
 `;
 
-const Layout = ({ children }) => {
-  const [showMenuMobile, setShowMenuMobile] = useState(false);
+const BackdropStyles = styled.div`
+  display: none;
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
 
+  @media (max-width: 1000px) {
+    display: ${({ menuOpen }) => (menuOpen ? "block" : "none")};
+  }
+`;
+
+const Layout = ({ children, menuOpen, setMenuOpen }) => {
   return (
     <div style={{ display: "flex" }}>
-      <SideMenu />
-      <MainSectionWrapper>
-        <Navbar />
+      <SideMenu menuOpen={menuOpen} />
+      <MainSectionWrapper menuOpen={menuOpen}>
+        <Navbar menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
         <PageContentWrapper>{children}</PageContentWrapper>
         <Footer />
       </MainSectionWrapper>
+      <BackdropStyles onClick={() => setMenuOpen(false)} menuOpen={menuOpen}>
+        backdrop
+      </BackdropStyles>
     </div>
   );
 };

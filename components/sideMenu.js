@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-const SideMenu = () => {
+const SideMenu = ({ menuOpen }) => {
   const router = useRouter();
 
   const menuList = [
@@ -30,7 +30,7 @@ const SideMenu = () => {
   ];
 
   return (
-    <MenuWrapper>
+    <MenuWrapper menuOpen={menuOpen}>
       <div className="logo-link">
         <Link href="/">
           <div className="menu-logo">
@@ -90,6 +90,7 @@ const MenuWrapper = styled.div`
   background: #fff;
   position: fixed;
   border-right: 1px solid rgb(240, 240, 240);
+  z-index: 1000;
 
   .logo-link {
     cursor: pointer;
@@ -143,10 +144,9 @@ const MenuWrapper = styled.div`
     color: #262626;
   }
 
-  @media (max-width: 600px) {
-    div {
-      background: blue;
-    }
+  @media (max-width: 1000px) {
+    transform: ${({ menuOpen }) =>
+      menuOpen ? "translateX(0px)" : "translateX(-260px)"};
   }
 `;
 

@@ -1,15 +1,11 @@
 import Head from "next/head";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
-import styled from "styled-components";
 
 import CreateBlock from "../components/CreateBlock";
 import BlocksList from "../components/BlocksList";
 
-export default function Home() {
-  const [blocks, setBlocks] = useState([]);
+export default function Home({ blocks, getBlocks }) {
   const [editing, setEditing] = useState(null);
   const [blockData, setBlockData] = useState({
     height: "",
@@ -19,10 +15,6 @@ export default function Home() {
   const [proofs, setProofs] = useState([
     { amount: "", twitterURL: "", miner: "" },
   ]);
-
-  useEffect(() => {
-    getBlocks();
-  }, []);
 
   // Create
   const onSubmitBlock = async (e) => {
@@ -40,13 +32,6 @@ export default function Home() {
     // builder.value = "";
     // twitterURL.value = "";
     // getBlocks();
-  };
-
-  // Read
-  const getBlocks = async () => {
-    const res = await axios.get("/api/blocks");
-    const data = res.data;
-    setBlocks(data);
   };
 
   // Update

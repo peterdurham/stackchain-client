@@ -1,6 +1,6 @@
-import Link from "next/link";
 import logo from "../public/logo.jpeg";
 import styled from "styled-components";
+import Link from "next/link";
 
 import Image from "next/image";
 
@@ -14,13 +14,29 @@ const NavbarWrapper = styled.div`
   align-items: center;
   position: fixed;
   background: #fff;
+
+  #menu-toggle {
+    display: none;
+  }
+
+  @media (max-width: 1000px) {
+    width: 100%;
+
+    #menu-toggle {
+      display: block;
+    }
+  }
 `;
 
-const Navbar = () => {
+const Navbar = ({ setMenuOpen, menuOpen }) => {
   return (
     <NavbarWrapper>
-      <div>Menu Button</div>
-      <div>Login</div>
+      <div>
+        <button id="menu-toggle" onClick={() => setMenuOpen(!menuOpen)}>
+          Menu Button
+        </button>
+      </div>
+      <Link href="/login">Login</Link>
     </NavbarWrapper>
   );
 };

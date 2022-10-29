@@ -1,10 +1,32 @@
+import { useState, useEffect } from "react";
 import "../styles/globals.css";
 import Layout from "../components/layout";
+import axios from "axios";
+import { useRouter } from "next/router";
+
+const noLayoutRoutes = ["/login"];
 
 const MyApp = ({ Component, pageProps }) => {
-  return (
-    <Layout>
-      <Component {...pageProps} />
+  const [blocks, setBlocks] = useState([]);
+  const [menuOpen, setMenuOpen] = useState(true);
+  const router = useRouter();
+
+  useEffect(() => {
+    getBlocks();
+  }, []);
+
+  // Read
+  const getBlocks = async () => {
+    const res = await axios.get("/api/blocks");
+    const data = res.data;
+    setBlocks(data);
+  };
+
+  return noLayoutRoutes.includes(router.pathname) ? (
+    <Component {...pageProps} />
+  ) : (
+    <Layout menuOpen={menuOpen} setMenuOpen={setMenuOpen}>
+      <Component {...pageProps} blocks={blocks} getBlocks={getBlocks} />
     </Layout>
   );
 };

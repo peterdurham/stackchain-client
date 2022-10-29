@@ -1,7 +1,7 @@
 const Memepool = () => {
   return (
     <div>
-      <h1>Memepool</h1>
+      <h1>Memepool Page</h1>
     </div>
   );
 };
