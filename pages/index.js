@@ -15,7 +15,6 @@ const StyledHeader = styled.h1`
 export default function Home() {
   const [blocks, setBlocks] = useState([]);
   const [editing, setEditing] = useState(null);
-
   const [blockData, setBlockData] = useState({
     height: "",
     parent: "",
