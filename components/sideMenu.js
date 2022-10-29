@@ -1,8 +1,11 @@
 import Image from "next/image";
 import styled from "styled-components";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const SideMenu = () => {
+  const router = useRouter();
+
   const menuList = [
     {
       url: "/",
@@ -28,16 +31,28 @@ const SideMenu = () => {
 
   return (
     <MenuWrapper>
-      <div className="menu-logo">
-        <Image src={"/logo.png"} width={70} height={70} />
+      <div className="logo-link">
+        <Link href="/">
+          <div className="menu-logo">
+            <Image src={"/logo.png"} width={70} height={70} />
+          </div>
+        </Link>
       </div>
+
       <div>
         <h6 className="menu-header">General</h6>
       </div>
       <div className="menu-options">
         {menuList.map((item) => {
           return (
-            <div className="menu-option" key={item.url}>
+            <div
+              key={item.url}
+              className={
+                router.pathname == item.url
+                  ? "menu-option active"
+                  : "menu-option"
+              }
+            >
               <Link href={item.url}>
                 <div className="menu-option-contents">
                   <div className="menu-svg">{item.icon}</div>
@@ -76,6 +91,10 @@ const MenuWrapper = styled.div`
   position: fixed;
   border-right: 1px solid rgb(240, 240, 240);
 
+  .logo-link {
+    cursor: pointer;
+  }
+
   .menu-logo {
     padding: 20px;
   }
@@ -91,12 +110,11 @@ const MenuWrapper = styled.div`
 
   .menu-option {
     margin: 8px;
+    border-radius: 8px;
   }
 
-  .menu-options a {
-  }
   .menu-option-contents {
-    border-radius: 6px;
+    border-radius: 8px;
     height: 48px;
     display: block;
     cursor: pointer;
@@ -116,6 +134,11 @@ const MenuWrapper = styled.div`
   }
 
   .menu-options .menu-option-contents:hover {
+    background-color: rgba(145, 158, 171, 0.08);
+    color: #262626;
+  }
+
+  .active {
     background-color: rgba(145, 158, 171, 0.08);
     color: #262626;
   }
