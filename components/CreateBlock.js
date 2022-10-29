@@ -8,7 +8,7 @@ const CreateBlockWrapper = styled.div`
     rgb(145 158 171 / 12%) 0px 12px 24px -4px;
   border-radius: 16px;
   padding: 24px;
-  margin-bottom: 24px;
+  margin: 24px;
 `;
 
 const CreateBlock = ({

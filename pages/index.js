@@ -8,10 +8,6 @@ import styled from "styled-components";
 import CreateBlock from "../components/CreateBlock";
 import BlocksList from "../components/BlocksList";
 
-const StyledHeader = styled.h1`
-  color: red;
-`;
-
 export default function Home() {
   const [blocks, setBlocks] = useState([]);
   const [editing, setEditing] = useState(null);
@@ -32,8 +28,6 @@ export default function Home() {
   const onSubmitBlock = async (e) => {
     e.preventDefault();
     const builder = blockData?.twitterURL?.split("/")[3] || "";
-    console.log("blockData", blockData);
-    console.log("proofs", proofs);
 
     await axios.post("/api/blocks", {
       height: blockData.height,
