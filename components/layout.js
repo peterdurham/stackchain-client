@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Image from "next/image";
-import Navbar from "./navbar";
+import TopNav from "./topNav";
 import Footer from "./footer";
 import SideMenu from "./sideMenu";
 import styled from "styled-components";
@@ -27,6 +27,7 @@ const BackdropStyles = styled.div`
   width: 100%;
   height: 100%;
   z-index: 100;
+  transition: all 0.3s;
 
   @media (max-width: 1000px) {
     display: ${({ menuOpen }) => (menuOpen ? "block" : "none")};
@@ -38,13 +39,14 @@ const Layout = ({ children, menuOpen, setMenuOpen }) => {
     <div style={{ display: "flex" }}>
       <SideMenu menuOpen={menuOpen} />
       <MainSectionWrapper menuOpen={menuOpen}>
-        <Navbar menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+        <TopNav menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
         <PageContentWrapper>{children}</PageContentWrapper>
         <Footer />
       </MainSectionWrapper>
-      <BackdropStyles onClick={() => setMenuOpen(false)} menuOpen={menuOpen}>
-        backdrop
-      </BackdropStyles>
+      <BackdropStyles
+        onClick={() => setMenuOpen(false)}
+        menuOpen={menuOpen}
+      ></BackdropStyles>
     </div>
   );
 };

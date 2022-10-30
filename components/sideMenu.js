@@ -30,11 +30,14 @@ const SideMenu = ({ menuOpen }) => {
   ];
 
   return (
-    <MenuWrapper menuOpen={menuOpen}>
+    <MenuWrapper
+      menuOpen={menuOpen}
+      className={menuOpen ? "slide-menu-in" : ""}
+    >
       <div className="logo-link">
         <Link href="/">
           <div className="menu-logo">
-            <Image src={"/logo.png"} width={70} height={70} />
+            <Image src={"/logo.png"} width={60} height={60} />
           </div>
         </Link>
       </div>
@@ -141,12 +144,28 @@ const MenuWrapper = styled.div`
 
   .active {
     background-color: rgba(145, 158, 171, 0.08);
+  }
+  .active .menu-option-contents {
     color: #262626;
   }
 
   @media (max-width: 1000px) {
     transform: ${({ menuOpen }) =>
       menuOpen ? "translateX(0px)" : "translateX(-260px)"};
+    transition: 0.3s all;
+  }
+
+  .slide-menu-in {
+    animation: 0.3s slideMenuIn both;
+  }
+
+  @keyframes slideMenuIn {
+    0% {
+      transform: translateX(-260px);
+    }
+    100% {
+      transform: translateX(0px);
+    }
   }
 `;
 

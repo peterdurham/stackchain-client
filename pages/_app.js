@@ -8,7 +8,7 @@ const noLayoutRoutes = ["/login"];
 
 const MyApp = ({ Component, pageProps }) => {
   const [blocks, setBlocks] = useState([]);
-  const [menuOpen, setMenuOpen] = useState(true);
+  const [menuOpen, setMenuOpen] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
